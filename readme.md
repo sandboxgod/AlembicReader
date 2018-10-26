@@ -4,7 +4,7 @@ In order to build you will need to download CMake to compile the tests and game 
 * Open GL
 * Alembic (File import), which in turn depends on ILMBase from OpenEXR
 
-Below is the following command I used to generate the Makefiles (note for Unix, use "Unix Makefiles"):
+Below is the following command I used to generate the Makefiles on Windows (note for Linux/Unix, use "Unix Makefiles"):
 
 ```
 mkdir build
