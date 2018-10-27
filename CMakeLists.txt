@@ -7,11 +7,11 @@ include(CTest)
 set (PROJECT_SOURCE_DIR src)
 
 set(engine_source ${PROJECT_SOURCE_DIR}/AlembicFileReader.cpp
-			${PROJECT_SOURCE_DIR}/AlembicFileReader.h
-			${PROJECT_SOURCE_DIR}/Engine.cpp
-			${PROJECT_SOURCE_DIR}/Logger.h
-			${PROJECT_SOURCE_DIR}/Logger.cpp
-			.editorconfig
+            ${PROJECT_SOURCE_DIR}/AlembicFileReader.h
+            ${PROJECT_SOURCE_DIR}/Engine.cpp
+            ${PROJECT_SOURCE_DIR}/Logger.h
+            ${PROJECT_SOURCE_DIR}/Logger.cpp
+            .editorconfig
               )
 
 add_executable(AlembicReader ${engine_source})
