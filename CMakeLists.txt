@@ -10,7 +10,8 @@ file(GLOB engine_SRC
 )
 add_executable(RNOEngine ${engine_SRC})
 find_package(OpenGL REQUIRED)
-include_directories( ${OPENGL_INCLUDE_DIRS} ${ALEMBIC_INCLUDE_DIR} ${ALEMBIC_COMPILED_INCLUDE_DIR} ${ILMBASE_INCLUDE_DIR} )
 
-target_link_libraries(RNOEngine ${OPENGL_LIBRARIES} ${ALEMBIC_LIBRARIES} ${ILMBASE_LIBRARIES} )
+include_directories( ${OPENGL_INCLUDE_DIRS} ${ALEMBIC_INCLUDE_DIR} ${ILMBASE_INCLUDE_DIR} )
+
+target_link_libraries(RNOEngine ${OPENGL_LIBRARIES} ${ALEMBIC_LIBRARIES} ${ILMBASE_LIB_DIR}/Half.lib )
 
