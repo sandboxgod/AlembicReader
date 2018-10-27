@@ -1,4 +1,5 @@
 #include "AlembicFileReader.h"
+#include "Logger.h"
 
 #include <Alembic/AbcGeom/All.h>
 #include <Alembic/AbcCoreAbstract/All.h>
@@ -8,14 +9,15 @@
 namespace kreationsedge {
 	void TraverseScene(Alembic::AbcGeom::IObject& obj, size_t numChildren)
 	{
+		kreationsedge::Logger& logger = kreationsedge::Logger::getInstance();
 		for (int i = 0; i<numChildren; ++i)
 		{
-			std::cout << obj.getChildHeader(i).getFullName() << "\n";
+			logger.get().info(obj.getChildHeader(i).getFullName());
 			Alembic::AbcGeom::IObject child(obj, obj.getChildHeader(i).getName());
 
-			std::cout << "Children " << child.getNumChildren() << "\n";
+			logger.get().info("Children {} ", child.getNumChildren());
 			const Alembic::AbcGeom::MetaData &md = child.getMetaData();
-			std::cout << md.serialize() << "\n";
+			logger.get().info(md.serialize());
 
 			for (int x = 0; x<child.getNumChildren(); x++)
 			{
@@ -23,7 +25,7 @@ namespace kreationsedge {
 				const Alembic::AbcGeom::MetaData &md2 = child2.getMetaData();
 				if (Alembic::AbcGeom::IPolyMeshSchema::matches(md2) || Alembic::AbcGeom::ISubDSchema::matches(md2))
 				{
-					std::cout << "Found a mesh " << child2.getName() << "\n";
+					logger.get().info("Found a mesh {}", child2.getName());
 				}
 			}
 		}
@@ -31,12 +33,14 @@ namespace kreationsedge {
 
 	void AlembicFileReader::LoadAlembic(const std::string& file)
 	{
+		kreationsedge::Logger& logger = kreationsedge::Logger::getInstance();
+
 		Alembic::AbcGeom::IArchive archive(Alembic::AbcCoreOgawa::ReadArchive(), file);
 
-		std::cout << "traversing archive for elements\n";
+		logger.get().info("Traversing archive for elements");
 		Alembic::AbcGeom::IObject obj = archive.getTop();
 		auto numChildren = obj.getNumChildren();
-		std::cout << "found " << numChildren << " children in file\n";
+		logger.get().info("found {} children in file", numChildren);
 		TraverseScene(obj, numChildren);
 	}
 
